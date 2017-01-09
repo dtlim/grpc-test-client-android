@@ -13,6 +13,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField 'String', 'SERVER_IP', '\"' + getLocalIp() + '\"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -43,6 +46,11 @@ protobuf {
             }
         }
     }
+}
+
+def getLocalIp() {
+    println "IP ADDRESS IS " + InetAddress.getLocalHost().getHostAddress()
+    return InetAddress.getLocalHost().getHostAddress();
 }
 
 dependencies {

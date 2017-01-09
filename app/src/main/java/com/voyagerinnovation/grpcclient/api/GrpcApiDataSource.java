@@ -7,10 +7,10 @@ import android.os.Looper;
 import com.voyager.grpctest.GrpcApiGrpc;
 import com.voyager.grpctest.Request;
 import com.voyager.grpctest.Response;
+import com.voyagerinnovation.grpcclient.BuildConfig;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.stub.StreamObserver;
 
 /**
  * Created by dale on 1/6/17.
@@ -31,6 +31,7 @@ public class GrpcApiDataSource implements ApiDataSource {
 
     public GrpcApiDataSource(ApiActivity.Listener listener) {
         this.listener = listener;
+        host = BuildConfig.SERVER_IP;
         initilizeThread();
         initializeChannel();
     }
