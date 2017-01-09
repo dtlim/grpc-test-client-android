@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +26,7 @@ public class ChatActivity extends AppCompatActivity {
     Button buttonSend;
 
     private ChatAdapter chatAdapter;
+    private ChatDataSource chatDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +38,18 @@ public class ChatActivity extends AppCompatActivity {
         editTextMessage = (EditText) findViewById(R.id.edittext_message);
         buttonSend = (Button) findViewById(R.id.button_send);
 
-
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String user = editTextName.getText().toString();
+                String message = editTextMessage.getText().toString();
+                ChatMessage chatMessage = new ChatMessage(user, message);
+                chatDataSource.sendChatMessage(chatMessage);
+            }
+        });
 
         initializeRecyclerView();
+        initializeDataSource();
     }
 
     private void initializeRecyclerView() {
@@ -46,6 +57,15 @@ public class ChatActivity extends AppCompatActivity {
         recyclerViewChat.setAdapter(chatAdapter);
         recyclerViewChat.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter.setMessageList(dummyList());
+    }
+
+    private void initializeDataSource() {
+        chatDataSource = new GrpcChatDataSource(new Listener() {
+            @Override
+            public void onReceiveChatMessage(ChatMessage message) {
+                chatAdapter.addMessage(message);
+            }
+        });
     }
 
     private List<ChatMessage> dummyList() {

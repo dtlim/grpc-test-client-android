@@ -6,5 +6,4 @@ package com.voyagerinnovation.grpcclient.chat;
 
 public interface ChatDataSource {
     void sendChatMessage(ChatMessage message);
-    void onReceiveMessage(ChatMessage message);
 }
