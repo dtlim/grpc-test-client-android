@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.voyager.grpctest.secure";
+option java_outer_classname = "GrpcSecureProto";
+option objc_class_prefix = "GRPCSECURE";
+
+package secure;
+
+service GrpcSecure {
+  rpc RequestContent (Request) returns (Response) {}
+}
+
+message Request {
+  string query = 1;
+  int32 page = 2;
+}
+
+message Response {
+  string content = 1;
+  int32 page = 2;
+  bool has_next = 3;
+}

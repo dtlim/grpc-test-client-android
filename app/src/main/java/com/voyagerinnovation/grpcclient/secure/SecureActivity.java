@@ -1,4 +1,4 @@
-package com.voyagerinnovation.grpcclient.api;
+package com.voyagerinnovation.grpcclient.secure;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,20 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.voyager.grpctest.Response;
+import com.voyager.grpctest.secure.Response;
 import com.voyagerinnovation.grpcclient.R;
 
 /**
- * Created by dale on 1/6/17.
+ * Created by amw on 1/11/2017.
  */
 
-public class ApiActivity extends AppCompatActivity {
-
+public class SecureActivity extends AppCompatActivity {
     EditText editTextRequest;
     Button buttonSendRequest;
     TextView textViewServerResponse;
 
-    private ApiDataSource apiDataSource;
+    private SecureDataSource secureDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,18 +34,18 @@ public class ApiActivity extends AppCompatActivity {
         buttonSendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                apiDataSource.requestFromServer(editTextRequest.getText().toString());
+                secureDataSource.requestFromServer(editTextRequest.getText().toString(), "password123");
             }
         });
 
-        apiDataSource = new GrpcApiDataSource(new Listener() {
+        secureDataSource = new GrpcSecureDataSource(this, new SecureActivity.Listener() {
             @Override
             public void onDataLoaded(Response response) {
                 textViewServerResponse.setText(response.getContent());
             }
         });
 
-        
+
     }
 
     public interface Listener {

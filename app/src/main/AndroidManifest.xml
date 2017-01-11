@@ -14,6 +14,10 @@
         </activity>
 
         <activity android:name=".chat.ChatActivity">
+
+        </activity>
+
+        <activity android:name=".secure.SecureActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

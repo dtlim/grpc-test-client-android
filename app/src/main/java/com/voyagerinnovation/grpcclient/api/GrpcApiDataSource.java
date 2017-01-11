@@ -9,6 +9,7 @@ import com.voyager.grpctest.Request;
 import com.voyager.grpctest.Response;
 import com.voyagerinnovation.grpcclient.BuildConfig;
 
+import io.grpc.CallCredentials;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
